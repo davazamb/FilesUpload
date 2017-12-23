@@ -7,3 +7,42 @@
 
 </div>
 
+
+@*<script src="http://malsup.github.com/jquery.form.js"></script>*@
+
+<script src="~/Scripts/jquery.form.js"></script>
+@section scripts{
+
+
+<script>
+  (function () {
+      var bar = $('.progress-bar');
+      var percent = $('.progress-bar');
+      var status = $('#status');
+
+      $('form').ajaxForm({
+          beforeSend: function () {
+              status.empty();
+              var percentValue = '0%';
+              bar.width(percentValue);
+              percent.html(percentValue);
+          },
+          uploadProgress: function (event, position, total, percentComplete) {
+              var percentValue = percentComplete + '%';
+              bar.width(percentValue);
+              percent.html(percentValue);
+          },
+          success: function (d) {
+              var percentValue = '100%';
+              bar.width(percentValue);
+              percent.html(percentValue);
+              $('#fu1').val('');
+              alert(d);
+          },
+          complete: function (xhr) {
+              status.html(xhr.responseText);
+          }
+      });
+  })();
+</script>
+}
