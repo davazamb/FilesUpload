@@ -2,14 +2,45 @@
     ViewBag.Title = "Home Page";
 }
 
+<style>
+    .progress {
+        position: relative;
+        width: 300px;
+        border: 1px solid #ddd;
+        padding: 1px;
+    }
+
+    .progress-bar {
+        width: 0px;
+        height: 20px;
+        background-color: #57be65;
+    }
+</style>
+
+
 <div class="jumbotron">
     <h1>Subir Archivo</h1>
+    @{
+        ViewBag.Title = "Subir archivo";
+    }
 
+    @using (Ajax.BeginForm("SubirArchivo", "Home", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <input type="file" name="files" id="A1" />
+        <input type="submit" value="Subir" />
+
+    }
+
+    <div class="progress">
+        <div class="progress-bar">0%</div>
+    </div>
+    <div id="status"></div>
 </div>
 
 
 @*<script src="http://malsup.github.com/jquery.form.js"></script>*@
-
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 <script src="~/Scripts/jquery.form.js"></script>
 @section scripts{
 
@@ -36,7 +67,7 @@
               var percentValue = '100%';
               bar.width(percentValue);
               percent.html(percentValue);
-              $('#fu1').val('');
+              $('#A1').val('');
               alert(d);
           },
           complete: function (xhr) {

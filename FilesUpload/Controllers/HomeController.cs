@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,6 +12,26 @@ namespace FilesUpload.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult SubirArchivo(IEnumerable<HttpPostedFileBase> files)
+        {
+            int count = 0;
+            if (files != null)
+            {
+                foreach (var file in files)
+                {
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/Almacenados"), fileName);
+                        file.SaveAs(path);
+                        count++;
+                    }
+                }
+            }
+            return new JsonResult { Data = "Subidos con exito " + count + " archivo(s) almacenados" };
         }
 
         public ActionResult About()
