@@ -27,8 +27,10 @@
     @using (Ajax.BeginForm("SubirArchivo", "Home", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
-        <input type="file" name="files" id="A1" />
-        <input type="submit" value="Subir" />
+        <input type="file" name="files" id="A1" class="form-control"/>
+        <input type="file" name="files" id="A2" class="form-control"/>
+        <input type="file" name="files" id="A3" class="form-control"/>
+        <input type="submit" value="Subir" class="btn btn-success"/>
 
     }
 
@@ -39,41 +41,43 @@
 </div>
 
 
-@*<script src="http://malsup.github.com/jquery.form.js"></script>*@
-<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-<script src="~/Scripts/jquery.form.js"></script>
-@section scripts{
 
+@section scripts{
+@*<script src="http://malsup.github.com/jquery.form.js"></script>*@
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/jquery.form.js"></script>
 
 <script>
-  (function () {
-      var bar = $('.progress-bar');
-      var percent = $('.progress-bar');
-      var status = $('#status');
+  //(function () {
+  //    var bar = $('.progress-bar');
+  //    var percent = $('.progress-bar');
+  //    var status = $('#status');
 
-      $('form').ajaxForm({
-          beforeSend: function () {
-              status.empty();
-              var percentValue = '0%';
-              bar.width(percentValue);
-              percent.html(percentValue);
-          },
-          uploadProgress: function (event, position, total, percentComplete) {
-              var percentValue = percentComplete + '%';
-              bar.width(percentValue);
-              percent.html(percentValue);
-          },
-          success: function (d) {
-              var percentValue = '100%';
-              bar.width(percentValue);
-              percent.html(percentValue);
-              $('#A1').val('');
-              alert(d);
-          },
-          complete: function (xhr) {
-              status.html(xhr.responseText);
-          }
-      });
-  })();
+  //    $('form').ajaxForm({
+  //        beforeSend: function () {
+  //            status.empty();
+  //            var percentValue = '0%';
+  //            bar.width(percentValue);
+  //            percent.html(percentValue);
+  //        },
+  //        uploadProgress: function (event, position, total, percentComplete) {
+  //            var percentValue = percentComplete + '%';
+  //            bar.width(percentValue);
+  //            percent.html(percentValue);
+  //        },
+  //        success: function (d) {
+  //            var percentValue = '100%';
+  //            bar.width(percentValue);
+  //            percent.html(percentValue);
+  //            $('#A1').val('');
+  //            $('#A2').val('');
+  //            $('#A3').val('');
+  //            alert(d);
+  //        },
+  //        complete: function (xhr) {
+  //            status.html(xhr.responseText);
+  //        }
+  //    });
+  //})();
 </script>
 }

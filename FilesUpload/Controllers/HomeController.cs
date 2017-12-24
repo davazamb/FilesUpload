@@ -40,6 +40,20 @@ namespace FilesUpload.Controllers
 
             return View();
         }
+        [HttpPost]
+        public ActionResult About(IEnumerable<HttpPostedFileBase> files)
+        {
+            foreach (var file in files)
+            {
+                if (file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Almacenados"), fileName);
+                    file.SaveAs(path);
+                }
+            }
+            return RedirectToAction("Index");
+        }
 
         public ActionResult Contact()
         {
